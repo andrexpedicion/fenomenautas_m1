@@ -752,38 +752,7 @@
       </div>
       <div class="form-group">
         <label>Nivel educativo en el que enseñás <span class="required">*</span></label>
-        <div class="checkbox-group" id="cb-niveles">
-          <label class="checkbox-item" onclick="toggleCb(this, event)">
-            <input type="checkbox" value="Inicial"/>
-            <span class="cb-box">✓</span>
-            <span class="cb-label">Inicial</span>
-          </label>
-          <label class="checkbox-item" onclick="toggleCb(this, event)">
-            <input type="checkbox" value="Primario"/>
-            <span class="cb-box">✓</span>
-            <span class="cb-label">Primario</span>
-          </label>
-          <label class="checkbox-item" onclick="toggleCb(this, event)">
-            <input type="checkbox" value="Secundario"/>
-            <span class="cb-box">✓</span>
-            <span class="cb-label">Secundario</span>
-          </label>
-          <label class="checkbox-item" onclick="toggleCb(this, event)">
-            <input type="checkbox" value="Terciario"/>
-            <span class="cb-box">✓</span>
-            <span class="cb-label">Terciario</span>
-          </label>
-          <label class="checkbox-item" onclick="toggleCb(this, event)">
-            <input type="checkbox" value="Universitario"/>
-            <span class="cb-box">✓</span>
-            <span class="cb-label">Universitario</span>
-          </label>
-          <label class="checkbox-item" onclick="toggleCb(this, event)">
-            <input type="checkbox" value="Posgrado"/>
-            <span class="cb-box">✓</span>
-            <span class="cb-label">Posgrado</span>
-          </label>
-        </div>
+        <div class="checkbox-group" id="cb-niveles"></div>
         <div class="error-msg" id="err-nivel">Seleccioná al menos un nivel.</div>
       </div>
       <div class="form-group">
@@ -1155,8 +1124,8 @@ async function submitDatos() {
   const provincia = document.getElementById('d-provincia')?.value || null;
   const dni      = document.getElementById('d-dni').value.trim();
 
-  const niveles = [...document.querySelectorAll('#cb-niveles .checkbox-item.checked input')]
-                    .map(i => i.value);
+  const niveles = [...document.querySelectorAll('#cb-niveles .checkbox-item.checked')]
+                  .map(i => i.dataset.value);
 
   // Validaciones
   if (!nombre)   { showErr('nombre'); ok=false; } else hideErr('nombre');
@@ -1229,6 +1198,20 @@ async function descargarCertificado() {
 // ══════════════════════════════════════════════
 // INIT
 // ══════════════════════════════════════════════
+// Inicializar checkboxes de nivel educativo
+const nivelesopts = ['Inicial','Primario','Secundario','Terciario','Universitario','Posgrado'];
+const cbContainer = document.getElementById('cb-niveles');
+nivelesopts.forEach(nivel => {
+  const item = document.createElement('div');
+  item.className = 'checkbox-item';
+  item.dataset.value = nivel;
+  item.innerHTML = `<span class="cb-box">✓</span><span class="cb-label">${nivel}</span>`;
+  item.addEventListener('click', () => {
+    item.classList.toggle('checked');
+  });
+  cbContainer.appendChild(item);
+});
+  
 updateProgress();
 </script>
 </body>
