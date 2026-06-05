@@ -753,32 +753,32 @@
       <div class="form-group">
         <label>Nivel educativo en el que enseñás <span class="required">*</span></label>
         <div class="checkbox-group" id="cb-niveles">
-          <label class="checkbox-item" onclick="toggleCb(this)">
+          <label class="checkbox-item" onclick="toggleCb(this, event)">
             <input type="checkbox" value="Inicial"/>
             <span class="cb-box">✓</span>
             <span class="cb-label">Inicial</span>
           </label>
-          <label class="checkbox-item" onclick="toggleCb(this)">
+          <label class="checkbox-item" onclick="toggleCb(this, event)">
             <input type="checkbox" value="Primario"/>
             <span class="cb-box">✓</span>
             <span class="cb-label">Primario</span>
           </label>
-          <label class="checkbox-item" onclick="toggleCb(this)">
+          <label class="checkbox-item" onclick="toggleCb(this, event)">
             <input type="checkbox" value="Secundario"/>
             <span class="cb-box">✓</span>
             <span class="cb-label">Secundario</span>
           </label>
-          <label class="checkbox-item" onclick="toggleCb(this)">
+          <label class="checkbox-item" onclick="toggleCb(this, event)">
             <input type="checkbox" value="Terciario"/>
             <span class="cb-box">✓</span>
             <span class="cb-label">Terciario</span>
           </label>
-          <label class="checkbox-item" onclick="toggleCb(this)">
+          <label class="checkbox-item" onclick="toggleCb(this, event)">
             <input type="checkbox" value="Universitario"/>
             <span class="cb-box">✓</span>
             <span class="cb-label">Universitario</span>
           </label>
-          <label class="checkbox-item" onclick="toggleCb(this)">
+          <label class="checkbox-item" onclick="toggleCb(this, event)">
             <input type="checkbox" value="Posgrado"/>
             <span class="cb-box">✓</span>
             <span class="cb-label">Posgrado</span>
@@ -1134,10 +1134,13 @@ function toggleProvincia() {
   document.getElementById('grupo-provincia').style.display = pais === 'Argentina' ? 'block' : 'none';
 }
 
-function toggleCb(el) {
+function toggleCb(el, event) {
+  event.preventDefault();
   el.classList.toggle('checked');
+  const input = el.querySelector('input');
+  input.checked = el.classList.contains('checked');
 }
-
+  
 function validarMail(mail) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail);
 }
