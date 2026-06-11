@@ -1137,7 +1137,7 @@ async function submitDatos() {
   if (!ok) return;
 
   datosPersonales = { nombre, apellido, pais, mail, provincia, dni, nivel_educativo: niveles };
-
+  console.log('sesionId en submitDatos:', sesionId);
   // Guardar en Supabase
   if (sesionId) {
     await sbFetch(`sesiones?id=eq.${sesionId}`, 'PATCH', {
